@@ -5,6 +5,5 @@
   "author": {
     "name": "LPL Solutions"
   },
-  "keywords": ["vseguradora", "scaffold", "aspnet", "csharp", "dev-tools", "manual", "docs"],
-  "hooks": "./hooks/hooks.json"
+  "keywords": ["vseguradora", "scaffold", "aspnet", "csharp", "dev-tools", "manual", "docs"]
 }
