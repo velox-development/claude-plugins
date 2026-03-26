@@ -1,9 +1,10 @@
 {
   "name": "vseguradora-dev-tools",
-  "version": "0.1.0",
-  "description": "Ferramentas de desenvolvimento para o VSeguradora: geração de documentação técnica a partir de docs de PO e scaffold completo de features (17 artefatos) seguindo os padrões N-Tier do projeto.",
+  "version": "0.2.0",
+  "description": "Ferramentas de desenvolvimento para o VSeguradora: scaffold de features, documentação técnica a partir de docs de PO, geração automática de manuais do usuário e upload no Google Drive.",
   "author": {
     "name": "LPL Solutions"
   },
-  "keywords": ["vseguradora", "scaffold", "aspnet", "csharp", "dev-tools"]
+  "keywords": ["vseguradora", "scaffold", "aspnet", "csharp", "dev-tools", "manual", "docs"],
+  "hooks": "./hooks/hooks.json"
 }

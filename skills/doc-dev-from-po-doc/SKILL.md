@@ -1,12 +1,6 @@
 ---
 name: doc-dev-from-po-doc
-description: >
-  Agente de implementação para o VSeguradora: lê um documento de PO (PDF ou Markdown anexado)
-  e gera automaticamente (1) documentação técnica no formato Confluence tecnico-dev e (2) scaffold
-  completo de código C# seguindo SOLID, Clean Code e os padrões N-Tier do projeto. Use esta skill
-  sempre que o usuário anexar um documento de PO, mencionar "doc de PO", "documento do Product
-  Owner", "gerar scaffold do PO", "implementar feature do PO" ou qualquer variação — mesmo que
-  não mencione explicitamente o nome da skill.
+description: "Agente de implementação para o VSeguradora: lê um documento de PO e gera automaticamente documentação técnica Confluence tecnico-dev e scaffold completo de código C# seguindo SOLID, Clean Code e padrões N-Tier. Use sempre que o usuário mencionar doc de PO, documento do Product Owner, gerar scaffold do PO ou implementar feature do PO."
 ---
 
 # Agente de Implementação — PO Document → Código + Documentação Técnica

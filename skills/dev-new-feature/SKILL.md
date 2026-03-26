@@ -1,14 +1,6 @@
 ---
 name: dev-new-feature
-description: >
-  Agente de scaffold completo para o VSeguradora: dado um documento de especificação técnica
-  (doc técnico Confluence tecnico-dev ou documento de PO), gera todos os 17 artefatos necessários
-  para uma nova feature — Entidade, Business, Repository, ViewModel, AutoMapper, Actions no
-  Epic Controller, 3 Views Razor (Pesquisar, Resultado parcial, Cadastrar), Script SQL e Testes.
-  Use esta skill sempre que o usuário pedir para "implementar uma feature", "gerar scaffold",
-  "criar os arquivos para", "montar o CRUD de", anexar um doc técnico Confluence, ou pedir
-  código para uma funcionalidade do VSeguradora — mesmo sem mencionar explicitamente o nome
-  da skill.
+description: "Agente de scaffold completo para o VSeguradora: dado um documento de especificação técnica, gera todos os 17 artefatos necessários para uma nova feature — Entidade, Business, Repository, ViewModel, AutoMapper, Actions no Epic Controller, 3 Views Razor, Script SQL e Testes. Use sempre que o usuário pedir para implementar uma feature, gerar scaffold, criar os arquivos para ou montar o CRUD de uma funcionalidade do VSeguradora."
 ---
 
 # Agente de Desenvolvimento — Nova Feature (Scaffold Completo)

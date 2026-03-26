@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd \"${CLAUDE_PLUGIN_ROOT}\" && git pull --quiet --ff-only 2>/dev/null && echo '[vseguradora-dev-tools] Skills atualizadas.' || echo '[vseguradora-dev-tools] Sem atualizacoes pendentes.'",
+            "timeout": 20
+          }
+        ]
+      }
+    ]
+  }
+}
