@@ -1,62 +1,64 @@
 ---
 name: doc-de-pagina
 description: >
-  Esta skill deve ser usada quando o usuário quiser gerar o manual do usuário de uma
-  funcionalidade do VSeguradora a partir de um documento técnico (tecnico-dev do Confluence,
-  linkado ao doc de PO). Gatilhos: "gera manual do usuário", "cria a documentação do usuário",
+  Use esta skill sempre que o usuário quiser gerar um manual do usuário de uma feature do
+  VSeguradora. Gatilhos principais: mensagem contendo uma URL do Confluence + qualquer pedido
+  de manual/documentação, "gera manual do usuário", "cria documentação do usuário final",
   "gera o manual desta feature", "documenta para o usuário final", "cria manual a partir
-  do doc técnico", "gera doc de usuário do Confluence".
+  do doc técnico", "manual do usuário do Confluence". Também use quando o usuário fornecer
+  apenas um link do Confluence e pedir documentação — o link sozinho já é sinal suficiente.
 metadata:
-  version: "0.4.0"
+  version: "0.5.0"
 ---
 
 # doc-de-pagina
 
 Gere o manual do usuário a partir do documento técnico (tecnico-dev) do Confluence.
-O Chrome é opcional — se estiver conectado, captura screenshots da tela real para
-enriquecer o manual. Ao final, pergunta se o usuário quer enviar para o Google Drive.
+Screenshots via Chrome são opcionais — use se disponível, continue sem caso contrário.
+Ao final, pergunte se o usuário quer enviar para o Google Drive.
 
 ## Passo 1 — Obter o Documento Técnico
 
-Localize o documento técnico de duas formas possíveis:
+**Opção A — URL do Confluence fornecida na mensagem:**
+Use o conector Atlassian disponível nesta sessão para buscar o conteúdo da página.
+O ID da página geralmente aparece na URL como `/pages/XXXXXX/Nome-da-Pagina` — use esse
+número como identificador. Se a página contiver links para um doc de PO de origem,
+busque também esse documento para enriquecer o contexto de regras de negócio.
 
-**A — URL ou ID do Confluence fornecido:**
-Use `mcp__2cfbfefe-e976-4065-9122-bdc3223bb1b7__getConfluencePage` para buscar o conteúdo.
-Se o documento tiver links para o doc de PO de origem, busque também o PO para contexto adicional
-de regras de negócio usando `mcp__2cfbfefe-e976-4065-9122-bdc3223bb1b7__getConfluencePage`.
+**Opção B — Conteúdo colado diretamente na conversa:**
+Use o texto já presente no contexto — não é necessária nenhuma chamada externa.
 
-**B — Conteúdo colado diretamente na conversa:**
-Use o texto já presente no contexto.
-
-Extraia do documento técnico:
+Após obter o conteúdo, extraia:
 - **NomeFeature** — nome da funcionalidade
 - **NomeModulo** — módulo/epic ao qual pertence
-- **Entidade e campos** — campos da entidade com tipos e obrigatoriedades
-- **Regras de negócio** — validações, restrições, comportamentos esperados
-- **Fluxo principal** — sequência de ações do usuário
+- **Campos** — lista de campos com tipos e obrigatoriedades
+- **Regras de negócio** — validações e restrições
+- **Fluxo principal** — sequência de ações do usuário final
 
-## Passo 2 — Capturar Tela (se Claude in Chrome disponível)
+## Passo 2 — Capturar Tela (Chrome — opcional)
 
-Tente usar `mcp__Claude_in_Chrome__get_page_text` e `mcp__Claude_in_Chrome__read_page`.
+Se ferramentas do Claude in Chrome estiverem disponíveis nesta sessão, use-as para
+capturar o texto e a tela atual. Isso permite enriquecer o manual com labels reais,
+layout e botões visíveis na interface.
 
-- Se **funcionar**: capture o texto e o screenshot da tela atual. Use os dados visuais
-  (labels reais, layout, botões visíveis) para complementar e corrigir o que foi extraído
-  do documento técnico.
-- Se **não funcionar ou não estiver conectado**: prossiga normalmente usando apenas o
-  documento técnico. Não exiba erro — apenas siga em frente.
+Se as ferramentas do Chrome não estiverem disponíveis nesta sessão, apenas ignore
+este passo e continue. Não exiba mensagem de erro.
 
 ## Passo 3 — Gerar o Manual
 
-Produza o manual completo seguindo `references/manual-structure.md`.
+Produza o manual completo seguindo a estrutura detalhada em `references/manual-structure.md`.
 
-**Título:** `Manual do Usuário — [NomeFeature]`
-**Subtítulo:** `Módulo: [NomeModulo] | Versão: 1.0 | Data: [data atual]`
+**Cabeçalho:**
+```
+Manual do Usuário — [NomeFeature]
+Módulo: [NomeModulo] | Versão: 1.0 | Data: [data atual]
+Elaborado por: VSeguradora — LPL Solutions
+```
 
-Seções obrigatórias:
+**Seções obrigatórias:**
 1. **Visão Geral** — o que a feature faz, para quem é destinada, pré-requisitos de acesso
-2. **Passo a Passo de Uso** — fluxo principal narrado em linguagem do usuário final,
-   tabela de campos (label visível, tipo, obrigatório), mensagens de validação traduzidas
-   para linguagem simples
+2. **Passo a Passo de Uso** — fluxo narrado em linguagem do usuário final, tabela de campos
+   (label visível, tipo, obrigatório), mensagens de validação em linguagem simples
 3. **FAQ** — mínimo 5 perguntas inferidas das regras de negócio e campos identificados
 
 Linguagem acessível — sem nomes de classes, métodos, arquivos ou termos técnicos de código.
@@ -66,7 +68,7 @@ Linguagem acessível — sem nomes de classes, métodos, arquivos ou termos téc
 Salve o manual como arquivo Markdown no workspace:
 - Caminho: `Manuais/[NomeModulo]/Manual_[NomeFeature].md`
 
-Crie a pasta se não existir. Informe o caminho ao usuário.
+Crie a pasta se não existir.
 
 ## Passo 5 — Perguntar sobre o Drive
 
@@ -80,8 +82,8 @@ Após salvar, pergunte ao usuário:
    (ID: `1sYkqKNvvjR8b-ig6f1cd7nu4Uc6qzTDg`)
 2. Crie o Google Doc com o conteúdo do manual
 3. Informe o link do documento criado
-4. Se Claude in Chrome estiver ativo, injete o botão flutuante via `mcp__Claude_in_Chrome__javascript_tool`
-   usando o código em `references/floating-button.js` com o link do Drive
+4. Se Claude in Chrome estiver ativo, injete o botão flutuante usando o código em
+   `references/floating-button.js` com o link do Drive
 
 **Se responder NÃO:**
 Encerre com o resumo abaixo.
@@ -89,8 +91,9 @@ Encerre com o resumo abaixo.
 ## Resumo Final
 
 ```
-✅ Fontes usadas: [doc técnico Confluence] [+ tela Chrome, se disponível]
-✅ Manual salvo: Manuais/[NomeModulo]/Manual_[NomeFeature].md
-[✅ Enviado ao Drive: link] ou [— não enviado]
+✅ Manual gerado: [NomeFeature]
+✅ Fontes: doc técnico do Confluence [+ tela Chrome, se disponível]
+✅ Salvo em: Manuais/[NomeModulo]/Manual_[NomeFeature].md
+[✅ Enviado ao Drive: link] ou [— não enviado ao Drive]
 [✅ Botão flutuante injetado] ou [—]
 ```

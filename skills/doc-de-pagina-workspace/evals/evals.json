@@ -1,0 +1,85 @@
+{
+  "skill_name": "doc-de-pagina",
+  "evals": [
+    {
+      "id": 0,
+      "prompt": "gera o manual do usuário desta feature: https://vseguradora.atlassian.net/wiki/spaces/DEV/pages/987654/CadastroSeguro",
+      "expected_output": "Manual do usuário gerado em Markdown com as seções: Visão Geral, Passo a Passo e FAQ. Arquivo salvo em Manuais/[Modulo]/Manual_CadastroSeguro.md. Pergunta ao final se deseja enviar para o Drive.",
+      "files": [],
+      "assertions": [
+        {
+          "name": "tenta buscar pagina confluence",
+          "criteria": "O agente tentou buscar a página do Confluence usando o ID 987654 ou a URL fornecida (seja via ferramenta Atlassian ou indicando que tentou fazer isso)"
+        },
+        {
+          "name": "gera manual com secoes corretas",
+          "criteria": "O output contém as três seções obrigatórias: Visão Geral (ou equivalente), Passo a Passo de Uso (ou equivalente), e FAQ com pelo menos 3 perguntas"
+        },
+        {
+          "name": "salva arquivo markdown",
+          "criteria": "O agente salvou ou tentou salvar um arquivo .md com caminho contendo Manuais/"
+        },
+        {
+          "name": "pergunta sobre drive",
+          "criteria": "O agente pergunta ao usuário se deseja enviar o manual para o Google Drive"
+        },
+        {
+          "name": "nao trava nem para",
+          "criteria": "O agente completou a execução sem ficar preso em loop, sem mensagem de erro crítico, e sem parar no meio do processo"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "prompt": "Segue o documento técnico da feature Apólice:\n\n# Documento Técnico — Apólice\n\n## Módulo\nGestão de Apólices\n\n## Entidade: Apolice\n- NumeroApolice (string, obrigatório)\n- DataInicio (DateTime, obrigatório)\n- DataFim (DateTime, obrigatório)\n- ValorPremio (decimal, obrigatório)\n- IdSegurado (int, obrigatório, FK Segurado)\n- Ativo (bool)\n\n## Regras de Negócio\n- DataFim deve ser posterior a DataInicio\n- ValorPremio deve ser maior que zero\n- NumeroApolice deve ser único no sistema\n- Apenas usuários do perfil Corretor ou Administrador podem criar apólices\n\n## Fluxo Principal\n1. Usuário acessa menu Apólices\n2. Clica em Nova Apólice\n3. Preenche os dados e seleciona o segurado\n4. Salva — sistema valida e confirma\n\nGera o manual do usuário.",
+      "expected_output": "Manual do usuário gerado em Markdown para a feature Apólice com: Visão Geral explicando o módulo, Passo a Passo com tabela de campos (NumeroApolice, DataInicio, DataFim, ValorPremio), mensagens de validação traduzidas, e FAQ com pelo menos 5 perguntas. Arquivo salvo em Manuais/Gestao de Apolices/ ou similar.",
+      "files": [],
+      "assertions": [
+        {
+          "name": "usa conteudo colado sem buscar confluence",
+          "criteria": "O agente usou o conteúdo colado diretamente na conversa, sem tentar buscar uma página do Confluence (já que nenhuma URL foi fornecida)"
+        },
+        {
+          "name": "tabela de campos completa",
+          "criteria": "O output contém uma tabela com os campos: NumeroApolice, DataInicio, DataFim, ValorPremio, e indica quais são obrigatórios"
+        },
+        {
+          "name": "validacoes traduzidas",
+          "criteria": "O manual menciona em linguagem de usuário final as validações: data fim após data início, valor premium positivo, número de apólice único"
+        },
+        {
+          "name": "faq minimo 5 perguntas",
+          "criteria": "A seção FAQ contém pelo menos 5 perguntas e respostas relevantes ao contexto de apólice"
+        },
+        {
+          "name": "sem jargao tecnico",
+          "criteria": "O manual não contém nomes de classes C#, métodos, controllers, namespaces ou outros termos técnicos de código"
+        },
+        {
+          "name": "pergunta sobre drive",
+          "criteria": "O agente pergunta ao usuário se deseja enviar o manual para o Google Drive"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "https://vseguradora.atlassian.net/wiki/spaces/VSEG/pages/112233/CadastroVeiculo\n\ngera manual",
+      "expected_output": "O agente reconhece que precisa buscar a página do Confluence, tenta fazê-lo, e se conseguir acesso gera o manual. Se a página não estiver acessível, informa claramente ao usuário e pede o conteúdo diretamente. Não trava nem para de funcionar.",
+      "files": [],
+      "assertions": [
+        {
+          "name": "reconhece url confluence",
+          "criteria": "O agente identifica que há uma URL do Confluence na mensagem e tenta buscar o conteúdo da página"
+        },
+        {
+          "name": "lida com falha graciosamente",
+          "criteria": "Se a página não estiver acessível ou o conteúdo não puder ser obtido, o agente informa o usuário de forma clara e solicita o conteúdo — sem travar, sem parar completamente, sem erro fatal"
+        },
+        {
+          "name": "nao trava",
+          "criteria": "O agente completou alguma resposta — seja gerando o manual, seja pedindo mais informações. Não ficou em silêncio total nem causou inatividade do plugin"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "eval_id": 0,
+  "eval_name": "url-com-link",
+  "prompt": "gera o manual do usuário desta feature: https://vseguradora.atlassian.net/wiki/spaces/DEV/pages/987654/CadastroSeguro",
+  "assertions": [
+    "O agente tentou buscar a página do Confluence usando o ID 987654 ou a URL fornecida",
+    "O output contém as três seções obrigatórias: Visão Geral, Passo a Passo de Uso e FAQ com pelo menos 3 perguntas",
+    "O agente salvou ou tentou salvar um arquivo .md com caminho contendo Manuais/",
+    "O agente pergunta ao usuário se deseja enviar o manual para o Google Drive",
+    "O agente completou a execução sem travar, sem erro crítico e sem parar no meio"
+  ]
+}

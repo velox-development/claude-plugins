@@ -1,0 +1,13 @@
+{
+  "eval_id": 1,
+  "eval_name": "conteudo-colado",
+  "prompt": "Segue o documento técnico da feature Apólice: [...] Gera o manual do usuário.",
+  "assertions": [
+    "O agente usou o conteúdo colado diretamente na conversa, sem tentar buscar uma página do Confluence",
+    "O output contém uma tabela com os campos: NumeroApolice, DataInicio, DataFim, ValorPremio, indicando quais são obrigatórios",
+    "O manual menciona em linguagem de usuário final as validações: data fim após data início, valor premium positivo, número de apólice único",
+    "A seção FAQ contém pelo menos 5 perguntas e respostas relevantes ao contexto de apólice",
+    "O manual não contém nomes de classes C#, métodos, controllers, namespaces ou termos técnicos de código",
+    "O agente pergunta ao usuário se deseja enviar o manual para o Google Drive"
+  ]
+}

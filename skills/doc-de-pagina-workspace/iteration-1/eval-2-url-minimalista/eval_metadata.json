@@ -1,0 +1,10 @@
+{
+  "eval_id": 2,
+  "eval_name": "url-minimalista",
+  "prompt": "https://vseguradora.atlassian.net/wiki/spaces/VSEG/pages/112233/CadastroVeiculo\n\ngera manual",
+  "assertions": [
+    "O agente identifica que há uma URL do Confluence na mensagem e tenta buscar o conteúdo da página",
+    "Se a página não estiver acessível, o agente informa o usuário e solicita o conteúdo — sem travar ou causar erro fatal",
+    "O agente completou alguma resposta — seja gerando o manual, seja pedindo mais informações — sem silêncio total"
+  ]
+}

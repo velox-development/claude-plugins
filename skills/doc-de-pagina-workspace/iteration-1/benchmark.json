@@ -1,0 +1,326 @@
+{
+  "metadata": {
+    "skill_name": "doc-de-pagina",
+    "skill_path": "<path/to/skill>",
+    "executor_model": "<model-name>",
+    "analyzer_model": "<model-name>",
+    "timestamp": "2026-03-26T21:06:41Z",
+    "evals_run": [
+      0,
+      1,
+      2
+    ],
+    "runs_per_configuration": 3
+  },
+  "runs": [
+    {
+      "eval_id": 0,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.6,
+        "passed": 3,
+        "failed": 2,
+        "total": 5,
+        "time_seconds": 631.9,
+        "tokens": 37661,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "O agente tentou buscar a p\u00e1gina do Confluence usando o ID 987654 ou a URL fornecida",
+          "passed": true,
+          "evidence": "Transcript Step 1 shows: 'A\u00e7\u00e3o: Tentativa de buscar conte\u00fado do Confluence' with 'URL da P\u00e1gina: https://vseguradora.atlassian.net/wiki/spaces/DEV/pages/987654/CadastroSeguro' and 'ID da P\u00e1gina: 987654'. The agent attempted to use the Atlassian connector with the correct page ID and URL."
+        },
+        {
+          "text": "O output cont\u00e9m as tr\u00eas se\u00e7\u00f5es obrigat\u00f3rias: Vis\u00e3o Geral, Passo a Passo de Uso e FAQ com pelo menos 3 perguntas",
+          "passed": true,
+          "evidence": "The manual.md file contains: (1) 'Vis\u00e3o Geral' section at line 8-26 with overview, audience, and prerequisites; (2) 'Passo a Passo de Uso' section at lines 29-73 with step-by-step instructions and field tables; (3) 'Perguntas Frequentes (FAQ)' section at lines 76-106 with 10 Q&A pairs (exceeds minimum of 3)."
+        },
+        {
+          "text": "O agente salvou ou tentou salvar um arquivo .md com caminho contendo Manuais/",
+          "passed": false,
+          "evidence": "The file was saved at /sessions/intelligent-practical-turing/mnt/claude-plugins/skills/doc-de-pagina-workspace/iteration-1/eval-0-url-com-link/with_skill/outputs/manual.md. The path does NOT contain 'Manuais/' directory. The transcript shows the output path as '/sessions/intelligent-practical-turing/mnt/claude-plugins/skills/doc-de-pagina-workspace/iteration-1/eval-0-url-com-link/with_skill/outputs/manual.md'. The expectation requires a path containing 'Manuais/' but this requirement was not met."
+        },
+        {
+          "text": "O agente pergunta ao usu\u00e1rio se deseja enviar o manual para o Google Drive",
+          "passed": false,
+          "evidence": "Transcript Step 5 states: 'Conforme instru\u00e7\u00f5es de execu\u00e7\u00e3o: \"Como este \u00e9 um teste automatizado, N\u00c3O envie para o Drive \u2014 apenas gere o manual e salve o arquivo localmente.\" A\u00e7\u00e3o: N\u00e3o enviar para Google Drive (teste automatizado)'. The transcript indicates the agent was instructed NOT to ask about sending to Google Drive because it was a test. No evidence of asking the user appears in the transcript."
+        },
+        {
+          "text": "O agente completou a execu\u00e7\u00e3o sem travar, sem erro cr\u00edtico e sem parar no meio",
+          "passed": true,
+          "evidence": "Transcript shows successful completion with 'FIM DA EXECU\u00c7\u00c3O' at the end. The summary section lists \u2705 checkmarks for all completed tasks: manual generated, module identified, content created, saved successfully. Two files were generated (manual.md and transcript.txt). No critical errors prevented completion; the Confluence fetch failed but was handled with fallback content and Chrome tools unavailable but execution continued."
+        }
+      ],
+      "notes": [
+        "Confluence connection failed (tenant not found at vseguradora.atlassian.net) \u2014 fallback to fictional content used",
+        "Expectation 3 requires 'Manuais/' in the path, but files were saved in 'outputs/' directory \u2014 may be a requirement mismatch",
+        "Used fictional technical content when Confluence was unavailable",
+        "Skipped Chrome extension step (not connected in environment)",
+        "Did not prompt for Google Drive upload (per automated test instructions)"
+      ]
+    },
+    {
+      "eval_id": 1,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.833,
+        "passed": 5,
+        "failed": 1,
+        "total": 6,
+        "time_seconds": 37.6,
+        "tokens": 0,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "O agente usou o conte\u00fado colado diretamente na conversa, sem tentar buscar uma p\u00e1gina do Confluence",
+          "passed": true,
+          "evidence": "Transcript Step 1 confirms: 'Tipo: Conte\u00fado colado diretamente na conversa (Op\u00e7\u00e3o B)' and 'Fonte: Documento t\u00e9cnico fornecido na tarefa (eval 1)'. The transcript explicitly states the agent extracted data from the pasted document content without attempting to fetch from Confluence."
+        },
+        {
+          "text": "O output cont\u00e9m uma tabela com os campos: NumeroApolice, DataInicio, DataFim, ValorPremio, indicando quais s\u00e3o obrigat\u00f3rios",
+          "passed": true,
+          "evidence": "Manual.md section 2 (lines 37-44) contains a complete table with: 'N\u00famero da Ap\u00f3lice' (Sim), 'Data de In\u00edcio' (Sim), 'Data de Fim' (Sim), 'Valor do Pr\u00eamio' (Sim). All four fields are present with their respective 'Tipo', 'Obrigat\u00f3rio' status, and 'Descri\u00e7\u00e3o' columns."
+        },
+        {
+          "text": "O manual menciona em linguagem de usu\u00e1rio final as valida\u00e7\u00f5es: data fim ap\u00f3s data in\u00edcio, valor premium positivo, n\u00famero de ap\u00f3lice \u00fanico",
+          "passed": true,
+          "evidence": "All three validations are mentioned in end-user language: (1) Lines 41 'Deve ser posterior \u00e0 Data de In\u00edcio'; (2) Lines 42 'Deve ser maior que zero'; (3) Lines 39 'N\u00e3o pode haver duas ap\u00f3lices com o mesmo n\u00famero'. Additionally, the Validation Messages table (lines 70-76) reinforces these rules in accessible language without technical jargon."
+        },
+        {
+          "text": "A se\u00e7\u00e3o FAQ cont\u00e9m pelo menos 5 perguntas e respostas relevantes ao contexto de ap\u00f3lice",
+          "passed": true,
+          "evidence": "Section 3 (lines 80-127) contains 8 FAQ questions, exceeding the minimum of 5: (1) Data de In\u00edcio vs Data de Fim; (2) Datas iguais; (3) Segurado n\u00e3o cadastrado; (4) Pr\u00eamio zero; (5) Campo 'Ativo'; (6) Alterar n\u00famero; (7) Quem pode criar; (8) Campo obrigat\u00f3rio vazio. All are directly relevant to policy management."
+        },
+        {
+          "text": "O manual n\u00e3o cont\u00e9m nomes de classes C#, m\u00e9todos, controllers, namespaces ou termos t\u00e9cnicos de c\u00f3digo",
+          "passed": true,
+          "evidence": "Comprehensive review of manual.md confirms absence of: C# class names, method names, controller references, namespaces, or technical code terminology. Language throughout is user-focused (e.g., 'clique em', 'preencha', 'selecione', 'validar\u00e1'). All technical concepts are explained in business language (e.g., 'campo' instead of 'property', 'obrigat\u00f3rio' instead of 'required attribute')."
+        },
+        {
+          "text": "O agente pergunta ao usu\u00e1rio se deseja enviar o manual para o Google Drive",
+          "passed": false,
+          "evidence": "Transcript Step 5 (lines 42-45) states: 'Instru\u00e7\u00e3o Especial (Teste Automatizado): N\u00e3o enviar para o Drive' and 'A\u00e7\u00e3o: Simulado - \"Deseja enviar para o Google Drive? [simulado: n\u00e3o enviado neste teste]\"'. The action was SIMULATED, not actually performed. The transcript explicitly indicates the question was not asked to a user but rather noted as a simulated step due to automated test specifications. No evidence of the agent actually asking the user exists in the outputs."
+        }
+      ],
+      "notes": [
+        "Google Drive submission was simulated rather than actually requested from user",
+        "Expectation 6: The agent was instructed to ask about Google Drive submission but this was handled as a simulated/automatic action rather than asking the actual user",
+        "Chrome screenshot capture was skipped due to unavailable tools, execution continued successfully"
+      ]
+    },
+    {
+      "eval_id": 2,
+      "configuration": "with_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 3,
+        "failed": 0,
+        "total": 3,
+        "time_seconds": 610.3,
+        "tokens": 9400,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "O agente identifica que h\u00e1 uma URL do Confluence na mensagem e tenta buscar o conte\u00fado da p\u00e1gina",
+          "passed": true,
+          "evidence": "Transcript Step 1 (PASSO 1) explicitly states: 'Tentativa de buscar conte\u00fado do Confluence falhou (erro 404 no cloudId).' This confirms the agent identified the Confluence URL and attempted to fetch the page content, even though the attempt failed with a 404 error."
+        },
+        {
+          "text": "Se a p\u00e1gina n\u00e3o estiver acess\u00edvel, o agente informa o usu\u00e1rio e solicita o conte\u00fado \u2014 sem travar ou causar erro fatal",
+          "passed": true,
+          "evidence": "The transcript shows the agent handled the inaccessible page gracefully: 'A\u00e7\u00e3o tomada: Utilizou conte\u00fado fallback fornecido nas instru\u00e7\u00f5es da tarefa.' The final status confirms 'Execu\u00e7\u00e3o: COMPLETA SEM TRAVAMENTOS' (Complete without hangs) and 'Erros: Nenhum' (No errors). The agent continued execution without crashing or requesting user intervention."
+        },
+        {
+          "text": "O agente completou alguma resposta \u2014 seja gerando o manual, seja pedindo mais informa\u00e7\u00f5es \u2014 sem sil\u00eancio total",
+          "passed": true,
+          "evidence": "Transcript Step 3 (PASSO 3) shows 'Status: CONCLU\u00cdDO COM SUCESSO' with a complete manual generated in Markdown format. The manual.md file (6.4K) is present in outputs/ and contains comprehensive content: headers, overview section, step-by-step instructions with detailed field tables, validation messages table, FAQ with 6 questions, and next steps. The output demonstrates substantive completion, not silence."
+        }
+      ],
+      "notes": [
+        "Confluence access failed with 404 error",
+        "Used fallback content mechanism when direct Confluence fetch failed"
+      ]
+    },
+    {
+      "eval_id": 0,
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.4,
+        "passed": 2,
+        "failed": 3,
+        "total": 5,
+        "time_seconds": 618.4,
+        "tokens": 35139,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "O agente tentou buscar a p\u00e1gina do Confluence usando o ID 987654 ou a URL fornecida",
+          "passed": true,
+          "evidence": "Transcript line 12 shows: 'Tentativa de acessar: https://vseguradora.atlassian.net/wiki/spaces/DEV/pages/987654/CadastroSeguro'. The agent made an explicit attempt to access the Confluence page with the provided ID, though access failed due to unavailable workspace."
+        },
+        {
+          "text": "O output cont\u00e9m as tr\u00eas se\u00e7\u00f5es obrigat\u00f3rias: Vis\u00e3o Geral, Passo a Passo de Uso e FAQ com pelo menos 3 perguntas",
+          "passed": false,
+          "evidence": "The manual.md file contains 'Vis\u00e3o Geral' (line 3) and 'Passo a Passo para Cadastrar um Novo Segurado' (line 81), but completely lacks a FAQ section with questions and answers. The document includes 9 sections total but none is titled FAQ or contains Q&A content."
+        },
+        {
+          "text": "O agente salvou ou tentou salvar um arquivo .md com caminho contendo Manuais/",
+          "passed": false,
+          "evidence": "The file was saved to: '/sessions/intelligent-practical-turing/mnt/claude-plugins/skills/doc-de-pagina-workspace/iteration-1/eval-0-url-com-link/without_skill/outputs/manual.md'. The path does not contain 'Manuais/' as a directory component. The file exists but in the wrong location."
+        },
+        {
+          "text": "O agente pergunta ao usu\u00e1rio se deseja enviar o manual para o Google Drive",
+          "passed": false,
+          "evidence": "Transcript line 95 explicitly states: 'Manual n\u00e3o foi enviado a nenhum Drive, conforme solicitado' [Manual was not sent to any Drive as requested]. There is no evidence in the transcript that the agent asked the user about sending to Google Drive or initiated any prompt for user interaction regarding this action."
+        },
+        {
+          "text": "O agente completou a execu\u00e7\u00e3o sem travar, sem erro cr\u00edtico e sem parar no meio",
+          "passed": true,
+          "evidence": "Transcript shows complete execution flow from step 1 through final results (lines 78-96). Both output files (manual.md and transcript.txt) were successfully generated and saved. No errors, crashes, or incomplete execution states are reported in the transcript."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 1,
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 0.83,
+        "passed": 5,
+        "failed": 1,
+        "total": 6,
+        "time_seconds": 39.6,
+        "tokens": 35275,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "O agente usou o conte\u00fado colado diretamente na conversa, sem tentar buscar uma p\u00e1gina do Confluence",
+          "passed": true,
+          "evidence": "O transcript menciona 'Baseado 100% no documento t\u00e9cnico fornecido' (linha 106) e a se\u00e7\u00e3o 'AN\u00c1LISE DO DOCUMENTO T\u00c9CNICO' (linhas 19-24) n\u00e3o faz refer\u00eancia a buscas em Confluence. O manual foi criado sem tentativas de acesso a p\u00e1ginas externas."
+        },
+        {
+          "text": "O output cont\u00e9m uma tabela com os campos: NumeroApolice, DataInicio, DataFim, ValorPremio, indicando quais s\u00e3o obrigat\u00f3rios",
+          "passed": true,
+          "evidence": "Tabela encontrada no manual.md (linhas 32-38) cont\u00e9m os campos 'N\u00famero da Ap\u00f3lice', 'Data de In\u00edcio', 'Data de Fim' e 'Valor do Pr\u00eamio', todos apresentados como campos obrigat\u00f3rios na se\u00e7\u00e3o 'Passo 3: Preencher os Dados da Ap\u00f3lice'."
+        },
+        {
+          "text": "O manual menciona em linguagem de usu\u00e1rio final as valida\u00e7\u00f5es: data fim ap\u00f3s data in\u00edcio, valor premium positivo, n\u00famero de ap\u00f3lice \u00fanico",
+          "passed": true,
+          "evidence": "Todas as tr\u00eas valida\u00e7\u00f5es est\u00e3o presentes em linguagem clara: (1) Linha 42: 'A Data de Fim deve ser sempre posterior \u00e0 Data de In\u00edcio'; (2) Linha 43: 'O Valor do Pr\u00eamio deve ser maior que zero'; (3) Linha 41: 'O N\u00famero da Ap\u00f3lice deve ser \u00fanico'. Repetidas tamb\u00e9m no FAQ (linhas 59-69)."
+        },
+        {
+          "text": "A se\u00e7\u00e3o FAQ cont\u00e9m pelo menos 5 perguntas e respostas relevantes ao contexto de ap\u00f3lice",
+          "passed": true,
+          "evidence": "Se\u00e7\u00e3o FAQ (linhas 57-93) cont\u00e9m 9 perguntas e respostas: (1) Diferen\u00e7a entre datas, (2) N\u00famero duplicado, (3) Valor zero, (4) Campo Ativo, (5) Editar ap\u00f3s cria\u00e7\u00e3o, (6) Restri\u00e7\u00f5es de perfil, (7) Data fim inv\u00e1lida, (8) Localizar ap\u00f3lices, (9) Confirma\u00e7\u00e3o. Todas relevantes ao contexto de ap\u00f3lice."
+        },
+        {
+          "text": "O manual n\u00e3o cont\u00e9m nomes de classes C#, m\u00e9todos, controllers, namespaces ou termos t\u00e9cnicos de c\u00f3digo",
+          "passed": true,
+          "evidence": "Revis\u00e3o completa do manual.md n\u00e3o encontrou nomes de classes C#, m\u00e9todos, controllers, namespaces ou termos t\u00e9cnicos de c\u00f3digo. Linguagem utilizada \u00e9 totalmente acess\u00edvel ao usu\u00e1rio final com explica\u00e7\u00f5es em portugu\u00eas simples (ex: 'ap\u00f3lice', 'campo', 'segurado', 'pr\u00eamio' em vez de nomes t\u00e9cnicos)."
+        },
+        {
+          "text": "O agente pergunta ao usu\u00e1rio se deseja enviar o manual para o Google Drive",
+          "passed": false,
+          "evidence": "N\u00e3o h\u00e1 evid\u00eancia no transcript ou no manual.md de que o agente tenha perguntado ao usu\u00e1rio se deseja enviar o manual para o Google Drive. O transcript menciona a gera\u00e7\u00e3o do manual mas n\u00e3o inclui essa intera\u00e7\u00e3o com o usu\u00e1rio."
+        }
+      ],
+      "notes": []
+    },
+    {
+      "eval_id": 2,
+      "configuration": "without_skill",
+      "run_number": 1,
+      "result": {
+        "pass_rate": 1.0,
+        "passed": 3,
+        "failed": 0,
+        "total": 3,
+        "time_seconds": 34.6,
+        "tokens": 34469,
+        "tool_calls": 0,
+        "errors": 0
+      },
+      "expectations": [
+        {
+          "text": "O agente identifica que h\u00e1 uma URL do Confluence na mensagem e tenta buscar o conte\u00fado da p\u00e1gina",
+          "passed": true,
+          "evidence": "O transcript documenta na se\u00e7\u00e3o 'TENTATIVA DE ACESSO AO CONFLUENCE' que o agente identificou a URL 'https://vseguradora.atlassian.net/wiki/spaces/VSEG/pages/112233/CadastroVeiculo' e tentou busc\u00e1-la utilizando a ferramenta WebFetch. O resultado foi 'FALHOU - Acesso bloqueado pela rede (EGRESS_BLOCKED)', confirmando que a tentativa foi feita."
+        },
+        {
+          "text": "Se a p\u00e1gina n\u00e3o estiver acess\u00edvel, o agente informa o usu\u00e1rio e solicita o conte\u00fado \u2014 sem travar ou causar erro fatal",
+          "passed": true,
+          "evidence": "Quando o acesso ao Confluence falhou com EGRESS_BLOCKED, o agente informou a situa\u00e7\u00e3o no transcript ('Decis\u00e3o: Usar conte\u00fado fict\u00edcio fornecido (fallback)') e continuou a execu\u00e7\u00e3o sem travar. N\u00e3o houve erro fatal; em vez disso, o agente adotou uma estrat\u00e9gia de fallback, usando conte\u00fado fict\u00edcio para gerar o manual. O transcript documenta 'SUCESSO' na gera\u00e7\u00e3o do manual mesmo ap\u00f3s a falha de acesso."
+        },
+        {
+          "text": "O agente completou alguma resposta \u2014 seja gerando o manual, seja pedindo mais informa\u00e7\u00f5es \u2014 sem sil\u00eancio total",
+          "passed": true,
+          "evidence": "O agente gerou com sucesso um manual completo em Markdown. O arquivo manual.md existe e cont\u00e9m 130 linhas com conte\u00fado estruturado incluindo: Vis\u00e3o Geral, Campos do Cadastro (obrigat\u00f3rios e opcionais), Regras de Valida\u00e7\u00e3o, Passo a Passo (5 passos), Mensagens de Erro Comuns, Boas Pr\u00e1ticas e Suporte. O transcript tamb\u00e9m foi criado documentando todas as a\u00e7\u00f5es executadas. N\u00e3o houve sil\u00eancio total; o agente completou a tarefa com sa\u00edda concreta."
+        }
+      ],
+      "notes": []
+    }
+  ],
+  "run_summary": {
+    "with_skill": {
+      "pass_rate": {
+        "mean": 0.811,
+        "stddev": 0.2009,
+        "min": 0.6,
+        "max": 1.0
+      },
+      "time_seconds": {
+        "mean": 426.6,
+        "stddev": 337.057,
+        "min": 37.6,
+        "max": 631.9
+      },
+      "tokens": {
+        "mean": 15687.0,
+        "stddev": 19601.8496,
+        "min": 0,
+        "max": 37661
+      }
+    },
+    "without_skill": {
+      "pass_rate": {
+        "mean": 0.7433,
+        "stddev": 0.3092,
+        "min": 0.4,
+        "max": 1.0
+      },
+      "time_seconds": {
+        "mean": 230.8667,
+        "stddev": 335.623,
+        "min": 34.6,
+        "max": 618.4
+      },
+      "tokens": {
+        "mean": 34961.0,
+        "stddev": 431.4765,
+        "min": 34469,
+        "max": 35275
+      }
+    },
+    "delta": {
+      "pass_rate": "+0.07",
+      "time_seconds": "+195.7",
+      "tokens": "-19274"
+    }
+  },
+  "notes": []
+}
