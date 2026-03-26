@@ -1,7 +1,7 @@
 {
 	"name": "vseguradora-dev-tools",
-	"version": "0.2.1",
-	"description": "Ferramentas de desenvolvimento para o VSeguradora: scaffold de features, documentação técnica a partir de docs de PO, geração automática de manuais do usuário e upload no Google Drive.",
+	"version": "0.3.0",
+	"description": "Ferramentas de desenvolvimento para o VSeguradora: scaffold de features, documentação técnica a partir de docs de PO e geração de manuais do usuário a partir de docs técnicos do Confluence.",
 	"author": {
 		"name": "LPL Solutions"
 	},

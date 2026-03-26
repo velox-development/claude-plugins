@@ -40,30 +40,22 @@ Dado um documento de especificação técnica (Confluence `tecnico-dev`), gera t
 
 ---
 
-### 🏗️📘 dev-feature-com-manual
-Igual ao `dev-new-feature`, mas com geração automática de documentação ao final. Após concluir os 17 artefatos, executa automaticamente:
-1. Geração do manual do usuário (Visão Geral, Passo a Passo, FAQ)
-2. Upload no Google Drive na pasta compartilhada da equipe (`VSeguradora > [Módulo]`)
-3. Injeção de botão flutuante na tela com link para o manual
-
-**Como usar:** Anexe o doc técnico e diga _"implementa a feature com manual"_ ou _"gera o scaffold com documentação"_.
-
----
-
 ### 📘 doc-de-pagina
-Gera o manual do usuário a partir de uma tela já aberta no navegador (via Claude in Chrome). Não precisa de código ou especificação — lê diretamente o que está na tela.
-1. Captura e analisa a página atual (campos, botões, validações, fluxos)
-2. Gera o manual do usuário com Visão Geral, Passo a Passo e FAQ
-3. Publica no Google Drive na pasta compartilhada da equipe
-4. Injeta botão flutuante na tela com link para o manual
+Gera o manual do usuário a partir do documento técnico (tecnico-dev) do Confluence, linkado ao doc de PO de origem. Enriquece com screenshots reais da tela se o Claude in Chrome estiver conectado.
 
-**Como usar:** Com a tela do VSeguradora aberta no navegador, diga _"gera a documentação da página atual"_ ou _"cria o manual desta tela"_.
+1. Lê o doc técnico do Confluence (por URL ou conteúdo colado) e o doc de PO vinculado
+2. Captura a tela atual via Chrome — se disponível (opcional, continua sem ele)
+3. Gera manual com Visão Geral, Passo a Passo e FAQ em linguagem acessível ao usuário final
+4. Salva como `.md` no workspace
+5. Pergunta se deseja enviar ao Google Drive da equipe
+
+**Como usar:** Forneça a URL do doc técnico do Confluence (ou cole o conteúdo) e diga _"gera o manual do usuário"_ ou _"cria a documentação para o usuário final"_.
 
 ---
 
 ## Google Drive — Pasta Compartilhada
 
-As skills `dev-feature-com-manual` e `doc-de-pagina` salvam os manuais na pasta compartilhada da equipe:
+A skill `doc-de-pagina` oferece envio ao Drive ao final da execução. Os manuais ficam organizados na pasta compartilhada da equipe:
 
 ```
 Pasta compartilhada (ID: 1sYkqKNvvjR8b-ig6f1cd7nu4Uc6qzTDg)
