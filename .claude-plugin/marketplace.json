@@ -1,0 +1,26 @@
+{
+  "name": "vseguradora-plugins",
+  "owner": {
+    "name": "LPL Solutions",
+    "email": "dev01@lplsolutions.com.br",
+    "url": "https://lplsolutions.com.br"
+  },
+  "metadata": {
+    "description": "Ferramentas de desenvolvimento para o VSeguradora: scaffold, documentação técnica e geração automática de manuais do usuário.",
+    "category": "engineering",
+    "keywords": ["vseguradora", "scaffold", "aspnet", "csharp", "docs", "manual"]
+  },
+  "plugins": [
+    {
+      "name": "vseguradora-dev-tools",
+      "version": "0.2.0",
+      "description": "Scaffold de features N-Tier, documentação técnica a partir de PO docs, geração automática de manuais do usuário com upload no Google Drive.",
+      "source": "./",
+      "author": {
+        "name": "LPL Solutions",
+        "email": "dev01@lplsolutions.com.br"
+      },
+      "keywords": ["vseguradora", "scaffold", "aspnet", "csharp", "manual", "google-drive"]
+    }
+  ]
+}
