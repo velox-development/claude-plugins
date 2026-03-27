@@ -35,6 +35,51 @@ Após obter o conteúdo, extraia:
 - **Regras de negócio** — validações e restrições
 - **Fluxo principal** — sequência de ações do usuário final
 
+## Passo 1b — Extrair Imagens da Documentação Técnica
+
+Após obter o conteúdo da página técnica, procure por imagens embutidas. As imagens
+da doc técnica enriquecem o manual do usuário — elas já foram validadas pelo time e
+mostram a interface real do sistema, poupando o passo de captura manual.
+
+### Listar anexos da página via API do Confluence
+
+Use `fetchAtlassian` para buscar os anexos:
+
+```
+GET /wiki/rest/api/content/{pageId}/child/attachment?expand=version&limit=50
+```
+
+Filtre apenas os anexos com `mediaType` de imagem:
+- `image/png`, `image/jpeg`, `image/gif`, `image/svg+xml`
+
+### Classificar: incluir ou excluir no manual
+
+Nem toda imagem técnica é adequada para o usuário final. Aplique este filtro:
+
+| Incluir no manual | Excluir do manual |
+|-------------------|-------------------|
+| Screenshots de tela/interface (nomes como `tela_`, `screen_`, `captura_`) | Diagramas de arquitetura |
+| Fluxos visuais de navegação | Modelos de dados (ERD) |
+| Resultado esperado / estado de sucesso | Mapas de infraestrutura |
+| Imagens com `_PO_`, `_usuario_`, `_manual_` no nome | Diagramas UML / sequência |
+
+Se nenhum nome der pistas claras, inclua imagens com menos de 400 KB (provavelmente
+screenshots) e exclua as maiores (provavelmente diagramas técnicos pesados).
+
+### Baixar as imagens selecionadas
+
+Para cada imagem aprovada, use `fetchAtlassian` com o endpoint de download do anexo:
+
+```
+GET /wiki/rest/api/content/{pageId}/child/attachment/{attachmentId}/download
+```
+
+Salve cada arquivo em `/tmp/manual_images/{nome_original}`.
+
+Se não houver nenhuma imagem disponível, continue sem — o passo é opcional.
+
+---
+
 ## Passo 2 — Capturar Tela (Chrome — opcional)
 
 Se ferramentas do Claude in Chrome estiverem disponíveis nesta sessão, use-as para
@@ -179,6 +224,33 @@ def make_cover(nome_feature, nome_modulo, data_atual):
     return t
 ```
 
+### Inserindo imagens no PDF (quando disponíveis)
+
+Se imagens foram baixadas no Passo 1b, insira-as no PDF usando `reportlab`:
+
+```python
+from reportlab.platypus import Image as RLImage
+import os
+
+def make_image_block(path, caption, usable_w):
+    """Retorna [imagem_centralizada, legenda] prontos para o story."""
+    from reportlab.platypus import KeepTogether
+    img = RLImage(path, width=usable_w * 0.85, height=None)  # height=None mantém proporção
+    img.hAlign = "CENTER"
+    legenda = Paragraph(f"<i>{caption}</i>", ParagraphStyle(
+        "Caption", parent=styles["Normal"],
+        fontSize=8, textColor=colors.HexColor("#555555"),
+        alignment=TA_CENTER, spaceAfter=10
+    ))
+    return KeepTogether([img, legenda])
+```
+
+Insira cada imagem **imediatamente após o passo que ela ilustra**, nunca ao final do documento.
+A legenda deve descrever o que o usuário está vendo — ex: *"Tela de cadastro de Classe de Risco Ocupacional"*.
+
+Se a imagem vier do Passo 2 (Chrome), use-a preferencialmente em vez da imagem da doc técnica
+para a mesma tela — a captura ao vivo é mais fiel ao estado atual do sistema.
+
 ### Estrutura do documento
 
 Monte o `story` com estas seções, na ordem:
@@ -193,6 +265,7 @@ Monte o `story` com estas seções, na ordem:
 4. **Seção 2 — Passo a Passo de Uso**
    - `Paragraph("2. Passo a Passo de Uso", h1_style)`
    - Passos numerados narrados como `Paragraph("1. Acesse o menu ...", body_style)`
+   - **Imagens de interface** inseridas após os passos correspondentes (via `make_image_block`)
    - Tabela de campos (4 colunas: Campo / Tipo / Obrigatório / Descrição)
    - Tabela de mensagens de validação (2 colunas: Situação / Mensagem exibida)
 5. **Seção 3 — Perguntas Frequentes (FAQ)**

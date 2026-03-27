@@ -152,3 +152,12 @@ Antes de finalizar o manual, verifique:
 - [ ] O FAQ tem pelo menos 5 perguntas pertinentes ao contexto da feature
 - [ ] O tom é consistente (formal, acessível, sem gírias)
 - [ ] Os campos da tabela da Seção 2.2 batem com o ViewModel gerado
+
+### Critérios de Qualidade para Imagens
+
+- [ ] Todas as imagens inseridas são de interface do usuário (nenhum diagrama técnico)
+- [ ] Cada imagem está posicionada imediatamente após o passo que ela ilustra
+- [ ] Todas as imagens têm legenda descritiva em português
+- [ ] Imagens com dados sensíveis ou usuários internos foram substituídas por capturas sanitizadas
+- [ ] A resolução é suficiente para leitura no PDF (sem pixelização visível)
+- [ ] Imagens do Chrome (Passo 2) foram usadas em preferência às da doc técnica quando disponíveis
